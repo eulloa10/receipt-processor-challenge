@@ -218,7 +218,7 @@ def test_get_receipt_points_valid_id(client):
     data = json.loads(response.data.decode('utf-8'))
     assert response.status_code == 200
     assert 'points' in data
-    assert data['points'] == '20'
+    assert data['points'] == 20
 
 # Nonexisting ID
 def test_get_receipt_points_nonexistent_id(client):

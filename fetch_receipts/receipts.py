@@ -31,7 +31,7 @@ receipts = {
             }
         ],
         "total": "35.35",
-        "points": "20"
+        "points": 20
     }
 }
 
