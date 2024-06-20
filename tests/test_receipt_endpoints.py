@@ -10,6 +10,7 @@ valid_receipt_a = {
         {"shortDescription": "Dasani", "price": "1.40"}
     ]
 }
+
 valid_receipt_b = {
     "retailer": "Target",
     "purchaseDate": "2022-01-02",
@@ -87,6 +88,7 @@ invalid_missing_fields = {
         {"shortDescription": "Dasani", "price": "1.40"}
     ]
 }
+
 invalid_date_format = {
     "retailer": "Ralph's",
     "purchaseDate": "01-02-2022",
@@ -97,6 +99,7 @@ invalid_date_format = {
         {"shortDescription": "Dasani", "price": "1.40"}
     ]
 }
+
 invalid_time_format = {
     "retailer": "Whole Foods",
     "purchaseDate": "2022-01-02",
@@ -106,6 +109,7 @@ invalid_time_format = {
         {"shortDescription": "Pepsi - 12-oz", "price": "1.25"}
     ]
 }
+
 invalid_price_amount = {
     "retailer": "Target",
     "purchaseDate": "2022-01-02",

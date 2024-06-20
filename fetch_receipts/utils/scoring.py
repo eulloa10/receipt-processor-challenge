@@ -33,8 +33,7 @@ class ReceiptScorer:
     def score_total_multiple(self):
         if float(self.total) % .25 == 0:
             return self.TOTAL_MULTIPLE_REWARD
-        else:
-            return 0
+        return 0
 
     def score_receipt_items(self):
         item_count = len(self.items)
