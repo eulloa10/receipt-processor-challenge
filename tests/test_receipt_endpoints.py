@@ -207,12 +207,21 @@ def test_receipt_invalid_field_types(client):
     assert response.status_code == 400
 
 # Invalid receipt - extra fields
-def test_receipt_invalid_field_types(client):
+def test_receipt_invalid_extra_fields(client):
     response = client.post('/receipts/process', json=invalid_extra_fields)
     assert response.status_code == 400
 
 # Valid receipt - get points
-# def test_get_receipt_points_valid_id(client):
+def test_get_receipt_points_valid_id(client):
+    receipt_id = '7b5aa609-da53-5dbb-923f-352fcd70a4d5'
+    response = client.get(f'/receipts/{receipt_id}/points')
+    data = json.loads(response.data.decode('utf-8'))
+    assert response.status_code == 200
+    assert 'points' in data
+    assert data['points'] == '20'
 
 # Nonexisting ID
-# def test_get_receipt_points_nonexistent_id(client):
+def test_get_receipt_points_nonexistent_id(client):
+    receipt_id = '7b5aa610-da54-5dbc-923g-352fcd70a4d9'
+    response = client.get(f'/receipts/{receipt_id}/points')
+    assert response.status_code == 404
