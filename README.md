@@ -1,7 +1,64 @@
+# Installation
+
+1. Clone this repository
+
+   ```bash
+   git clone https://github.com/eulloa10/receipt-processor-challenge
+   ```
+
+2. Navigate to the `feat--add-receipt-processor-endpoints` feature branch
+
+   ```bash
+   git checkout feat--add-receipt-processor-endpoints
+   ```
+
+3. Build the Docker image using the Dockerfile
+
+   ```bash
+   docker build -t fetch-receipts-app .
+   ```
+
+4. After the Docker image builds, run the Docker container
+
+   ```bash
+   docker run -p 5000:5000 fetch-receipts-app
+   ```
+
+5. You're ready to send requests to both receipts endpoints
+
+   ```bash
+   POST localhost:5000/receipts/process
+   GET localhost:5000/receipts/{id}/points
+   ```
+
+6. To run tests, navigate to the Dockerfile and comment out this command
+
+   ```bash
+   CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+   ```
+7. Uncomment the following commands to enable Pytest to run
+
+   ```bash
+   CMD ["pytest", "--disable-warnings"]
+   ```
+8. Build the Docker image using the Dockerfile
+
+   ```bash
+   docker build -t fetch-receipts-app .
+   ```
+
+9. After the Docker image builds, run the Docker container
+
+   ```bash
+   docker run -p 5000:5000 fetch-receipts-app
+   ```
+10. The tests will now run by default
+
+
 # Receipt Processor
 
-Build a webservice that fulfils the documented API. The API is described below. A formal definition is provided 
-in the [api.yml](./api.yml) file, but the information in this README is sufficient for completion of this challenge. We will use the 
+Build a webservice that fulfils the documented API. The API is described below. A formal definition is provided
+in the [api.yml](./api.yml) file, but the information in this README is sufficient for completion of this challenge. We will use the
 described API to test your solution.
 
 Provide any instructions required to run your application.
