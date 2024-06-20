@@ -8,8 +8,15 @@ class ItemSchema(Schema):
     price = fields.Str(required=True)
 
     @validates_schema
+    def validate_short_description(self, data, **kwargs):
+        short_description_format = '^[\\w\\s\\-]+$'
+        short_description = data.get('shortDescription')
+        if not re.match(short_description_format, short_description):
+            raise ValidationError('Invalid short description format', field_name='shortDescription')
+
+    @validates_schema
     def validate_price(self, data, **kwargs):
-        price_format = r'\d+(?:[.]\d{2})?$'
+        price_format = '^\\d+\\.\\d{2}$'
         price = data.get('price')
         if float(price) == 0.00 or not re.match(price_format, price):
             raise ValidationError('Price must be greater than 0.00 and in the format XX.XX', field_name='price')
@@ -20,6 +27,13 @@ class ReceiptSchema(Schema):
     purchaseTime = fields.Str(required=True, validate=validate.Regexp(r'^([01]\d|2[0-3]):?([0-5]\d)$', error="Time format must be in 24-hour format (HH:MM)"))
     items = fields.List(fields.Nested(ItemSchema), required=True)
     total = fields.Str(required=True)
+
+    @validates_schema
+    def validate_retailer_name(self, data, **kwargs):
+        retailer_name_format="^[\\w\\s\\-&]+$"
+        retailer_name = data.get('retailer')
+        if not re.match(retailer_name_format, retailer_name):
+            raise ValidationError('Invalid retailer name', field_name='retailer')
 
     @validates_schema
     def validate_date(self, data, **kwargs):
@@ -37,7 +51,7 @@ class ReceiptSchema(Schema):
 
     @validates_schema
     def validate_total(self, data, **kwargs):
-        total_format = r'\d+(?:[.]\d{2})?$'
+        total_format = '^\\d+\\.\\d{2}$'
         total = data.get('total')
         if float(total) == 0.00 or not re.match(total_format, total):
             raise ValidationError('Total must be greater than 0.00 and in the format XX.XX', field_name='total')

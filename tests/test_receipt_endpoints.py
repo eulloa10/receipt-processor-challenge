@@ -67,6 +67,17 @@ valid_receipt_d = {
   "total": "9.00"
 }
 
+invalid_retailer_name = {
+    "retailer": "...",
+    "purchaseDate": "2022-01-02",
+    "purchaseTime": "08:13",
+    "total": "2.65",
+    "items": [
+        {"shortDescription": "Pepsi - 12-oz", "price": "1.25"},
+        {"shortDescription": "Dasani", "price": "1.40"}
+    ]
+}
+
 invalid_missing_fields = {
     "retailer": "CVS",
     "purchaseDate": "2022-01-02",
@@ -122,6 +133,17 @@ invalid_empty_items = {
     "total": "2.65",
     "items": []
 }
+
+invalid_short_description = {
+    "retailer": "Target",
+    "purchaseDate": "2022-01-02",
+    "purchaseTime": "13:13",
+    "total": "1.25",
+    "items": [
+        {"shortDescription": "#@", "price": "1.25"}
+    ]
+}
+
 invalid_field_types = {
     "retailer": 12234532,
     "purchaseDate": "2022-01-02",
@@ -132,6 +154,7 @@ invalid_field_types = {
         {"shortDescription": "Dasani", "price": "1.40"}
     ]
 }
+
 invalid_extra_fields = {
     "retailer": "Walgreens",
     "purchaseDate": "2022-01-02",
@@ -171,6 +194,11 @@ def test_receipt_d_valid(client):
     assert response.status_code == 200
     assert 'id' in data
 
+# Invalid receipt - invalid retailer name
+def test_receipt_invalid_retailer(client):
+    response = client.post('/receipts/process', json=invalid_retailer_name)
+    assert response.status_code == 400
+
 # Invalid receipt - missing fields
 def test_receipt_missing_fields(client):
     response = client.post('/receipts/process', json=invalid_missing_fields)
@@ -194,6 +222,11 @@ def test_receipt_invalid_price(client):
 # Invalid receipt - invalid price format
 def test_receipt_invalid_price_format(client):
     response = client.post('/receipts/process', json=invalid_price_format)
+    assert response.status_code == 400
+
+# Invalid receipt - invalid short description
+def test_receipt_invalid_description(client):
+    response = client.post('/receipts/process', json=invalid_short_description)
     assert response.status_code == 400
 
 # Invalid receipt - empty items

@@ -40,7 +40,9 @@ def process_receipt():
     try:
         payload = ReceiptSchema().load(request.json)
     except ValidationError as err:
-        return jsonify(err.messages), 400
+        return jsonify({
+            "error": "The receipt is invalid"
+        }), 400
 
     id = create_id(payload)
 
@@ -66,7 +68,7 @@ def get_receipt_points(id):
         receipt = receipts[id]
     except KeyError as err:
         return jsonify({
-            "error": f"Receipt with id '{id}' not found"
+            "error": "No receipt found for that id"
         }), 404
 
     points = receipt.get('points')
