@@ -48,7 +48,6 @@ class ReceiptScorer:
                 total_points += math.ceil(float(item['price']) * self.ITEM_DESC_REWARD_MULT)
         return total_points
 
-
     def score_purchase_date(self):
         day = int(self.purchase_date.split('-')[2])
         if day % 2 == 0:
