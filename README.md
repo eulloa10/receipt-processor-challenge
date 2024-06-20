@@ -36,7 +36,7 @@
    ```bash
    CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
    ```
-7. Uncomment the following commands to enable Pytest to run
+7. Uncomment the following command to enable Pytest to run
 
    ```bash
    CMD ["pytest", "--disable-warnings"]
