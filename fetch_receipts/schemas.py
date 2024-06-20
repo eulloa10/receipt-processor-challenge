@@ -17,7 +17,7 @@ class ItemSchema(Schema):
 class ReceiptSchema(Schema):
     retailer = fields.Str(required=True)
     purchaseDate = fields.Str(required=True)
-    purchaseTime = fields.Str(required=True, validate=validate.Regexp(r'^\d{2}:\d{2}$', error="Time format must be in 24-hour format (HH:MM)"))
+    purchaseTime = fields.Str(required=True, validate=validate.Regexp(r'^([01]\d|2[0-3]):?([0-5]\d)$', error="Time format must be in 24-hour format (HH:MM)"))
     items = fields.List(fields.Nested(ItemSchema), required=True)
     total = fields.Str(required=True)
 
